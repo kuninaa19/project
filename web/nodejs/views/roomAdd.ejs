@@ -1,0 +1,145 @@
+<!-- 채팅창 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        #topBar{
+            width: 100%;
+            height:50px;
+            background: #0B2239;
+            border: 1px solid gray;
+            border-bottom-style : none;
+            display:flex;
+            align-items:center;
+        }
+        #topBar a:hover{
+            color: ivory;                           
+        }
+        #middleBar{
+            width: 100%;
+            height:50px;
+            background: whitesmoke;
+            border: 1px solid gray;
+            display:flex;
+            align-items:center;
+        }
+        a{text-decoration:none; color:#000000;}         
+
+        a:hover{color:black;
+        }       
+        .left-items{
+            display:flex;
+            margin-right:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+        .right-items{
+            display:flex;
+            margin-right:10px;
+            margin-left:auto;
+            float: right; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: right;   
+        }
+        .center-items{
+            display:flex;
+            margin-right:auto;
+            margin-left:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+
+        .item{
+            margin-left:10px;
+            font-weight:bold;
+        }
+        .menuLink {                          
+            text-decoration:none;                  
+            color: ivory;                                              
+            display: block;                         
+            font-size: 12px;                          
+            font-weight: bold;                         
+        }
+        #container {
+            width: 100%;
+            height:600px;
+            border: 1px solid gray;
+            background: whitesmoke;
+        }
+        #roomList {
+            height: 100%;
+            overflow-y: scroll;
+        }
+        table {
+            width: 60%;
+            height: 50%;
+            margin-top:10%;
+            margin-bottom:10%;
+            margin-left:20%;
+            margin-right:20%;
+            
+            border-collapse: separate;
+            border-spacing: 5px;
+            border: 1px solid #444444;
+        }
+       
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function placeOrder() { //form 제출
+  
+            document.getElementById('frm').submit();
+    }
+    </script>
+    
+    <nav id="topBar"> 
+        <div class="left-items">
+            <div class="item"><a href='/' class="menuLink" style="margin-top:10px;"><img src="http://localhost:8080/images/back.png"></a></div>
+            </div>
+
+            <div class="center-items">
+                <div class="item"><a class="menuLink"style="font-size:20px;">채팅방 만들기</a></div>
+                </div>
+
+            <div class="right-items">
+                <div class="item"><a href="#" onclick="placeOrder()" class="menuLink" style="margin-top:10px;"><img src="http://localhost:8080/images/plus.png"></a></div>
+            </div>
+    </nav>
+
+    <div id="container">
+        <form method="post" action="/roomAdd/done" name="roomForm" id="frm">
+        <table>
+            <thead>
+            </thead>
+                <th style="height:25%;">채팅방 제목</th>     
+            <tr>
+                <td style="height:15%;"><input type="text" placeholder="채팅방 제목을 입력해 주세요." name="subject" id ="subject" style="height:100%; width:98%" maxlength="25"/></td>
+            </tr>
+            <th style="height:25%;">채팅방 소개내용</th>
+            <tr>
+            <td><textarea placeholder="채팅방 소개내용을 작성해주세요." name="content" id="content" maxlength="100" style="height:100%; width:98%; resize:none;"></textarea>
+                </td>
+            </tr>
+            </tbody> 
+        </table>
+        </form>
+    </div>
+     
+    <script>
+        // 소켓io서버 객체화
+        // var socket = io();
+    </script>
+</body>
+</html>

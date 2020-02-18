@@ -1,0 +1,201 @@
+<!-- 채팅창 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        #topBar{
+            width: 100%;
+            height:50px;
+            background: #0B2239;
+            border: 1px solid gray;
+            border-bottom-style : none;
+            display:flex;
+            align-items:center;
+        }
+        #topBar a:hover{
+            color: ivory;                           
+        }
+        #middleBar{
+            width: 100%;
+            height:50px;
+            background: whitesmoke;
+            border: 1px solid gray;
+            display:flex;
+            align-items:center;
+        }
+        a{text-decoration:none; color:#000000;}         
+
+        a:hover{color:black;
+        }       
+        .left-items{
+            display:flex;
+            margin-right:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+        .center-items{
+            display:flex;
+            margin-right:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+        .right-items{
+            display:flex;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left; 
+        }
+        .item{
+            margin-left:10px;
+            font-weight:bold;
+        }
+        .menuLink {                          
+            text-decoration:none;                  
+            color: ivory;                           
+            display: block;                         
+            font-size: 12px;                          
+            font-weight: bold;                         
+        }
+      
+        .msgLine {
+        margin: 15px;
+        }
+        .msgBox {
+        border: 1px solid black;
+        background: #FFF1B8;
+        padding: 2px 5px;
+        border-radius: 10px;
+        }
+        #container {
+            width: 100%;
+            height:550px;
+            border: 1px solid gray;
+            border-top-style : none;
+            background: whitesmoke;
+            overflow-y: scroll;
+
+        }
+        ul { margin: 0;  padding: 0; }
+        li {
+        width : 100%;
+        height: 60px;
+        display: block;
+        border-bottom: 0.5px solid #bcbcbc;
+      }
+      input {
+        width:390px;
+        line-height: 25px;     
+    }
+    </style>
+     <script>
+        // 소켓io서버 객체화
+        var socket = io();
+
+        $(document).ready(function() {
+       var content = $('#search');
+       
+       //content값에 클릭같이 변화가 생겼을때
+       content.keyup(function() {
+          var value = content.val();
+          //방이 있는지 검색요청
+          socket.emit('roomSearch', value);
+       });
+    });
+
+         moment.updateLocale('en', {
+    relativeTime : {
+        future: "%s 후",
+        past:   "%s 전",
+        s  : "%d 초",
+        ss : "%d 초",
+        m:  "%d 분",
+        mm: "%d 분",
+        h:  "%d 시간",
+        hh: "%d 시간",
+        d:  "%d 일",
+        dd: "%d 일",
+        M:  "%d 달",
+        MM: "%d 달",
+        y:  "%d 년",
+        yy: "%d 년"
+    }
+});
+
+    //검색에 대한 결과
+    socket.on('searchResults', function(data) {
+        var html = "";
+    if(data != null && data.length > 0){
+        html = "<ul>"; 
+        for(var i=0; i<data.length;i++){
+            let date = moment(data[i].created);
+
+            html += "<li><a href='/room/chat?id="+data[i].id+"'  data-ajax='false'>";
+            html += "<div style ='font-size:x-large; margin-left:10px'>"+data[i].title+"</div>";
+            html += "<small style='margin-left:10px'>"+data[i].description+"</small>";
+            html += "<small style='float:right; margin-right:10px'>생성일 "+date.fromNow()+"</small></a></li>"; 
+            }
+        html += "<ul>"; 
+
+            $('#MyroomList').html(html);
+        }
+    }); 
+    
+    </script>
+</head>
+<body>
+    <nav id="topBar"> 
+        <div class="left-items">
+            <div class="item"><a href='/' class="menuLink" style="margin-top:10px;"><img src="http://localhost:8080/images/back.png"></a></div>
+            </div>
+
+        <div class="center-items">
+            <div class="item"><a class="menuLink" style="font-size:20px;">채팅방 목록</a></div>
+            </div>
+    </nav>
+
+    <nav id="middleBar">
+        <div class="left-items" style="margin-right:10px;">
+            <div class="item"><span class="menuLink" style="font-size:15px; color: black;">채팅방 검색</span></div>
+            </div>
+
+            <div class="right-items">
+                <input type="text" id="search">
+            </div>
+    </nav>
+
+
+    <div id="container">
+        <div id="MyroomList">
+            <!-- List 형태는 의미에 맞게 <ul><li>태그 이용 -->
+		<% if(roomlist != null && roomlist.length > 0){ %>
+            <ul>
+                <% for ( var i = 0; i < roomlist.length; i++){ %>
+                    <!-- href를 이용해서 페이지 이동시  data-ajax="false" 를 추가해줘야 함. 그렇지 않으면 ajax형태로 가져온 데이터(화면)을 추가함.-->
+                    <li><a href="/room/chat?id=<%=roomlist[i].id%>"  data-ajax="false">
+                       <div style ="font-size:x-large; margin-left:10px"><%=roomlist[i].title%></div>
+                        <small style="margin-left:10px"><%=roomlist[i].description%></small>
+                            <small style="float:right; margin-right:10px">생성일 <%=relativeTime[i]%></small>
+                        </a>
+                    </li>
+                <% } %>
+            </ul> 
+        <% }else{ %>
+            <div style ="font-size:large; margin-left:10px">채팅방이 없습니다.</div>
+       <% } %>
+        </div>
+    </div>
+</body>
+</html>

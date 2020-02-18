@@ -1,0 +1,328 @@
+<!-- 채팅창 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chat</title>
+    <style>
+        #topBar{
+            width: 100%;
+            height:50px;
+            background: #0B2239;
+            border: 1px solid gray;
+            display:flex;
+            align-items:center;
+            color:ivory;
+        }
+        #topBar a:hover{
+            color: ivory;                           
+        }
+        a{text-decoration:none; color:#000000;}         
+
+        a:hover{color:black;
+        }       
+        .left-items{
+            display:flex;
+            margin-right:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+        .center-items{
+            display:flex;
+            margin-right:auto;
+            margin-left:auto;
+            float: left; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: left;    
+        }
+        .right-items{
+            display:flex;
+            margin-right:10px;
+            margin-left:auto;
+            float: right; 
+            line-height: 25px;     
+            vertical-align: middle;    
+            text-align: right;   
+        }
+        .item{
+            margin-top:10px;
+            margin-left:10px;
+            font-weight:bold;
+        }
+        .menuLink {                          
+            text-decoration:none;                  
+            color: ivory;                           
+            display: block;                         
+            font-size: 12px;                          
+            font-weight: bold;                         
+        }
+        .nickBox {
+            float:top;
+        }
+        .msgLine {
+        margin: 15px;
+        }
+        .msgBox {
+        border: 1px solid black;
+        background: #FFDDA1;
+        padding: 2px 5px;
+        border-radius: 10px;
+        }
+        #container {
+            width: 100%;
+            height:600px;
+            border: 1px solid gray;
+            border-top-style : none;
+            background: whitesmoke;
+        }
+        #chatView {
+            height: 90%;
+            overflow-y: scroll;
+        }
+        #chatForm {
+            height: 10%;
+            border-top: 1px solid gray;
+            text-align: center;
+        }
+        #msg {
+            margin-top:5px;
+            width: 80%;
+            height: 40px;
+            border-radius: 8px;
+        }
+        #send {
+            width: 16%;
+            margin-top:5px;
+            height: 40px;
+            border-radius: 50px;
+            background: black;
+            color: white;
+        }
+        .lineLeft{
+            margin-left:15px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+ 
+    <script>
+        // URL get 정보만 가져오기위한 함수
+        var getParameters = function (paramName) {
+        // 리턴값을 위한 변수 선언
+        var returnValue;
+
+        // 현재 URL 가져오기
+        var url = location.href;
+
+        // get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔
+        var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+
+        // 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return
+        for (var i = 0; i < parameters.length; i++) {
+        var varName = parameters[i].split('=')[0];
+        if (varName.toUpperCase() == paramName.toUpperCase()) {
+            returnValue = parameters[i].split('=')[1];
+            return decodeURIComponent(returnValue);
+                }
+            }
+        };
+        // 소켓io서버 객체화
+        const socket = io();
+        var room = getParameters('id');
+        socket.emit('joinRoom',room);
+        
+        //사람 현재인원표기
+        socket.on('person', function(data) {
+            console.log(data);
+            document.getElementById("personNum").innerHTML=data+"명";
+        });
+
+        // 클라이언트 나감
+        socket.on('personRMV', function(data) {
+            console.log(data);
+            document.getElementById("personNum").innerHTML=data+"명";
+        });
+
+        //뒤로버튼  눌렀을때 나가려는 유저제외하고 알림
+        function back(){
+            //현재 인원표
+            socket.emit('personRMV',room);
+            location.href = "http://localhost:8080/";
+        }
+
+        // 방나가기
+        function exit(){
+            var jbResult = confirm( '채팅방을 나가시겠습니까?' );
+            
+            if(jbResult ){
+            $.ajax({
+                    //호출할 원격URL
+                    url : "http://localhost:8080/room/chat/out",
+                    async: true,
+                    type: 'POST',
+                    data : {
+                        roomNum:room
+                    },
+                    dataType:"json",
+                    success : function(data){
+                        socket.emit('personRMV',room);
+                        location.href = "http://localhost:8080/";
+                    }
+                 });
+                }
+            }
+    </script>
+</head>
+<body>
+    <nav id="topBar"> 
+        <div class="left-items">
+            <div class="item"><a href='#' onclick="back();" class="menuLink"><img src="http://localhost:8080/images/back.png"></a></div>
+            <div class="item"><a  href='#' onclick="exit();" class="menuLink" ><img class="lineLeft" src="http://localhost:8080/images/roomExit.png"></a></div>
+        </div>
+
+        <div class="center-items">
+            <!-- 채팅방 이름 표기 -->
+            <div class="item"><a class="menuLink" style="font-size:20px;"><%=title%></a></div>
+        </div>
+
+        <!-- 현재 채팅방 인원 표기 -->
+        <div class="right-items">
+            <div class="item"><img class="lineLeft"src="http://localhost:8080/images/person.png"></div>
+            <div class="item" class="lineLeft" id="personNum">명</div>
+        </div>
+    </nav>
+
+    <div id="container">
+        <div id="chatView">
+            <!-- 이전에 채팅했던 목록 보여주기 -->
+            <% if(chatList != null && chatList.length > 0){ %>
+                <% for(var i = 0; i < chatList.length; i++){%> 
+                    <% if(chatList[i].user_id==userID){ %>
+                        <div class="msgLine" style="text-align:right">
+                            <div class="msgBox" style="display:inline-block"><%=chatList[i].reply%></div>
+                        </div>
+                    <% }else{ %>
+                        <div class="msgLine">
+                            <div class="nickBox"><%=chatList[i].nickname%></div>
+                            <div class="msgBox" style="display:inline-block"><%=chatList[i].reply%></div>
+                        </div>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </div>
+        <form id="chatForm" onsubmit="return false">
+            <input type="text" id="msg">
+            <input type="submit" id="send" value="전송">
+        </form>
+    </div>
+    <input type="hidden" id="userID" name="userID" value=<%=userID%>>
+    <input type="hidden" id="nickname" name="nickname" value=<%=nickname%>>
+
+    <script>
+    var chatView = document.getElementById('chatView'); // 메시지 활성창
+    var chatForm = document.getElementById('chatForm'); //메시지 작성창
+    var user = document.getElementById('userID');
+
+    // 버튼 사용없이 비동기로 정보가져오기
+    function chat(params){
+            if(params.user_id==user){
+                var msgLine = $('<div class="msgLine">');
+                var msgBox = $('<div class="msgBox">');
+
+                msgBox.append(params.reply);
+                //msg변수에 css주기
+                msgBox.css('display', 'inline-block');
+                    
+                msgLine.css('text-align', 'right');
+                msgLine.append(msgBox);
+                    
+                $('#chatView').append(msgLine);
+                    
+                //스크롤 크기값 확인후 스크롤크기값 메시지활성창에 대입
+                chatView.scrollTop = chatView.scrollHeight;
+            }
+            else{
+                var msgLine = $('<div class="msgLine">');
+                var nickBox = $('<div class="nickBox">');
+                var msgBox = $('<div class="msgBox">');
+
+                // msgBox.append(data.nickname);
+
+                msgBox.append(params.reply);
+                msgBox.css('display', 'inline-block');
+                    
+                nickBox.append(params.nickname);
+                    
+                msgLine.append(nickBox);
+                    
+                msgLine.append(msgBox);
+                $('#chatView').append(msgLine);
+                    
+                chatView.scrollTop = chatView.scrollHeight;
+            }            
+        };
+
+    // 메시지 전송버튼 이벤트리스너
+    chatForm.addEventListener('submit', function() {
+        var msg = $('#msg'); // id가 msg인 값을 msg변수에 저장
+ 
+        // 값이 입력되지않았다면 전송되지않음
+        if (msg.val() == '') {
+            return;
+        } else {
+            //값이있다면 서버에 전달
+            var userID = $('#userID').val();
+            var nickname = $('#nickname').val();
+
+            var json ={msg:msg.val(),nickname:nickname,userID:userID,roomName:room}
+            //socket.emit. 이벤트명 'SEND'으로 서버측에 값 전송
+            socket.emit('SEND', json);
+ 
+            var msgLine = $('<div class="msgLine">');
+            var msgBox = $('<div class="msgBox">');
+        
+            //.append() 메소드는 선택된 요소의 마지막에 새로운 HTML 요소나 콘텐츠를 추가한다.
+            msgBox.append(msg.val());
+            //msg변수에 css주기
+            msgBox.css('display', 'inline-block');
+ 
+            msgLine.css('text-align', 'right');
+            msgLine.append(msgBox);
+ 
+            $('#chatView').append(msgLine);
+ 
+            //메시지 다시 초기화
+            msg.val('');
+            //스크롤 크기값 확인후 스크롤크기값 메시지활성창에 대입
+            chatView.scrollTop = chatView.scrollHeight;
+        }
+    });
+ //메시지를 수신하기 위해서는 on 메소드를 사용
+    socket.on('SEND', function(data) {
+        var msgLine = $('<div class="msgLine">');
+        var nickBox = $('<div class="nickBox">');
+
+        var msgBox = $('<div class="msgBox">');
+        
+        // msgBox.append(data.nickname);
+
+        msgBox.append(data.msg);
+        msgBox.css('display', 'inline-block');
+ 
+        nickBox.append(data.nickname);
+
+        msgLine.append(nickBox);
+
+        msgLine.append(msgBox);
+        $('#chatView').append(msgLine);
+ 
+        chatView.scrollTop = chatView.scrollHeight;
+    });
+</script>
+</body>
+</html>
