@@ -1,0 +1,63 @@
+<!-- 채팅창 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/javascripts/chat.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/css/chat.css"/>
+</head>
+<body>
+<nav id="topBar">
+    <div class="left-items">
+        <div class="item"><a href='#' onclick="back();" class="menuLink"><img src="../public/images/back.png"></a></div>
+        <div class="item"><a href='#' onclick="exit();" class="menuLink"><img class="lineLeft"
+                                                                              src="../public/images/roomExit.png"></a>
+        </div>
+    </div>
+
+    <div class="center-items">
+        <!-- 채팅방 이름 표기 -->
+        <div class="item"><a class="menuLink" style="font-size:20px;"><%= title %></a></div>
+    </div>
+
+    <!-- 현재 채팅방 인원 표기 -->
+    <div class="right-items">
+        <div class="item"><img class="lineLeft" src="../public/images/person.png"></div>
+        <div class="item" class="lineLeft" id="personNum">명</div>
+    </div>
+</nav>
+
+<div id="container">
+    <div id="chatView">
+        <!-- 이전에 채팅했던 목록 보여주기 -->
+        <% if(chatList != null && chatList.length > 0){ %>
+            <% for(var i = 0; i < chatList.length; i++){ %>
+                <% if(chatList[i].user_id == userID){ %>
+                <div class="msgLine" style="text-align:right">
+                    <div class="msgBox" style="display:inline-block"><%= chatList[i].reply %></div>
+                </div>
+                <% }else{ %>
+                <div class="msgLine">
+                    <div class="nickBox"><%= chatList[i].nickname %></div>
+                    <div class="msgBox" style="display:inline-block"><%= chatList[i].reply %></div>
+                </div>
+                <% } %>
+            <% } %>
+        <% } %>
+    </div>
+    <form id="chatForm" onsubmit="return false">
+        <input type="text" id="msg">
+        <input type="submit" id="send" value="전송">
+    </form>
+</div>
+<input type="hidden" id="userID" name="userID" value=<%= userID %>>
+<input type="hidden" id="nickname" name="nickname" value=<%= nickname %>>
+
+<script src="../public/javascripts/chatting.js"></script>
+</body>
+</html>

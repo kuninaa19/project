@@ -1,0 +1,33 @@
+node_modules/
+.DS_Store
+
+sessions/
+nodejs/sessions/
+nodejs/data/
+
+#phpCrawing
+#simplehtmldom
+
+#naver Editor
+smarteditor/
+
+#phpdotenv
+#vendor
+*.lock
+
+#보내는 메일정보
+sendmail.php
+
+#암호화 복호화
+crypt.php
+
+js/
+
+# dotenv environment variables file
+#db.env
+.env.test
+*.env
+
+#composer
+composer.json
+composer.lock

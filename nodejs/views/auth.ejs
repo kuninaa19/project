@@ -1,0 +1,19 @@
+<!-- 로그인 인증파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>auth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/javascripts/auth.js"></script>
+</head>
+<body>
+<form method="post" action="/auth/ok" name="roomForm" id="frm">
+    <input type="hidden" name="user" value="">
+    <input type="hidden" name="nickname" value="">
+</form>
+</body>
+</html>

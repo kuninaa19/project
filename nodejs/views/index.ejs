@@ -1,0 +1,59 @@
+<!-- 내채팅목록, 채팅방만들기, 활성화된 채팅목록으로 접근할 수 있는 가장 초기 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chatMain</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/javascripts/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/css/index.css"/>
+</head>
+<body>    
+        <nav id="topBar"> 
+            <div class="left-items">
+                <div class="item"><a class="menuLink" style="font-size:20px;">채팅</a></div>
+                </div>
+
+                <div class="right-items">
+                    
+                    <div class="item"><a href="/roomAdd" class="menuLink" style="margin-top:10px;"><img src="../public/images/group.png"></a></div>
+                </div>
+        </nav>
+        
+        <nav id="middleBar">
+            <a href='/roomList'>
+            <div class="left-items">
+                <div class="item"><span class="menuLink" style="font-size:15px; color: black;">활성화된 채팅방 목록 보기</span></div>
+                </div>
+                <div class="right-items">
+                    <span class="menuLink" style="font-size:35px; color: black;"><%=count %><img src="../public/images/roomList.png"></span>
+                </a>
+                </div>
+        </nav>
+        
+    <div id="container">
+        <div id="MyroomList">
+            <!-- List 형태는 의미에 맞게 <ul><li>태그 이용 -->
+		<% if(roomlist != null && roomlist.length > 0){ %>
+            <ul>
+                <% for ( var i = 0; i < roomlist.length; i++){ %>
+                    <!-- href를 이용해서 페이지 이동시  data-ajax="false" 를 추가해줘야 함. 그렇지 않으면 ajax형태로 가져온 데이터(화면)을 추가함.-->
+                    <li><a href="/room/chat?id=<%=roomlist[i].id%>"  data-ajax="false">
+                       <div style ="font-size:x-large; margin-left:10px"><%=roomlist[i].title%></div>
+                       <!-- 가장 최신 채팅내용과 시간전달받기 -->
+                        <small style="margin-left:10px" id="chat"><%=reply[i]%></small>
+                            <small style="float:right; margin-right:10px" id="time"><%=relativeTime[i]%></small>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        <% }else{ %>
+            <div style ="font-size:large; margin-left:10px">채팅목록이 없습니다.</div>
+       <% } %>
+        </div>
+    </div>
+</body>
+</html>

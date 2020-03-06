@@ -1,0 +1,58 @@
+<!-- 채팅창 html파일 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/javascripts/roomList.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/css/roomList.css"/>
+</head>
+<body>
+    <nav id="topBar"> 
+        <div class="left-items">
+            <div class="item"><a href='/' class="menuLink" style="margin-top:10px;"><img src="../public/images/back.png"></a></div>
+            </div>
+
+        <div class="center-items">
+            <div class="item"><a class="menuLink" style="font-size:20px;">채팅방 목록</a></div>
+            </div>
+    </nav>
+
+    <nav id="middleBar">
+        <div class="left-items" style="margin-right:10px;">
+            <div class="item"><span class="menuLink" style="font-size:15px; color: black;">채팅방 검색</span></div>
+            </div>
+
+            <div class="right-items">
+                <input type="text" id="search">
+            </div>
+    </nav>
+
+
+    <div id="container">
+        <div id="MyroomList">
+            <!-- List 형태는 의미에 맞게 <ul><li>태그 이용 -->
+		<% if(roomlist != null && roomlist.length > 0){ %>
+            <ul>
+                <% for ( var i = 0; i < roomlist.length; i++){ %>
+                    <!-- href를 이용해서 페이지 이동시  data-ajax="false" 를 추가해줘야 함. 그렇지 않으면 ajax형태로 가져온 데이터(화면)을 추가함.-->
+                    <li><a href="/room/chat?id=<%=roomlist[i].id%>"  data-ajax="false">
+                       <div style ="font-size:x-large; margin-left:10px"><%=roomlist[i].title%></div>
+                        <small style="margin-left:10px"><%=roomlist[i].description%></small>
+                            <small style="float:right; margin-right:10px">생성일 <%=relativeTime[i]%></small>
+                        </a>
+                    </li>
+                <% } %>
+            </ul> 
+        <% }else{ %>
+            <div style ="font-size:large; margin-left:10px">채팅방이 없습니다.</div>
+       <% } %>
+        </div>
+    </div>
+</body>
+</html>
