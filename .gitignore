@@ -27,6 +27,7 @@ js/
 #db.env
 .env.test
 *.env
+.env
 
 #composer
 composer.json
