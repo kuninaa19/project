@@ -86,7 +86,7 @@
                 <td><textarea name="content" id="content" rows="10" cols="100"
                               style="width:700px; height:500px; display:none; width:100%">
           </textarea>
-                    <script type="text/javascript" src="../editor.js"></script>
+                    <script type="text/javascript" src="../js/writeEditor.js"></script>
                 </td>
             </tr>
             <tr>

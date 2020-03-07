@@ -5,8 +5,9 @@ sessions/
 nodejs/sessions/
 nodejs/data/
 
+.idea/
 #phpCrawing
-#simplehtmldom
+simplehtmldom
 
 #naver Editor
 smarteditor/
@@ -16,12 +17,13 @@ smarteditor/
 *.lock
 
 #보내는 메일정보
-sendmail.php
+myInfo/sendmail.php
+
+#임시 비밀번호 생성기
+myInfo/tempPW.php
 
 #암호화 복호화
 crypt.php
-
-js/
 
 # dotenv environment variables file
 #db.env

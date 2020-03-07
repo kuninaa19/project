@@ -1,36 +1,7 @@
 <?php
 session_start();
 include_once('../db.php');
-
-
-$board_name = "notice";
-$number = $_GET['id'];
-
-$_dummy = $_SESSION['cnt_list'];
-$cnt_list_dummy = explode(";", $_dummy);
-
-$board_cnt_ok = 0;
-
-for ($i = 0; $i < sizeof($cnt_list_dummy); $i++) {
-    if ($cnt_list_dummy[$i] == $board_name . "_" . $number) {
-        $board_cnt_ok = 1;
-        break;
-    }
-}
-if ($board_cnt_ok == 0) {
-
-    mysqli_query($conn, "UPDATE notice SET viewed=viewed+1 where id=$number");
-
-    $cn = ";" . $board_name . "_" . $number;
-
-    $_SESSION['cnt_list'] .= $cn;
-    session_start(); // 세션을 수정했다면 변경된 내용을 저장해줘야함.
-}
-
-$sql = "SELECT * FROM notice WHERE id=$number";
-$result = mysqli_query($conn, $sql);
-
-$row = mysqli_fetch_array($result);
+include_once ('viewed_ck.php');
 ?>
 
 <!DOCTYPE html>
@@ -40,12 +11,7 @@ $row = mysqli_fetch_array($result);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ITdream</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.js"></script>
     <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -205,110 +171,8 @@ $row = mysqli_fetch_array($result);
                 str = "";
                 count = 0;
             }
-
-
-            // 댓글 수정하기
-            $(document).on("click", "#update_btn", function () {
-
-                var id = $(this).attr("name");
-
-                var info = {"replyNum": id, "action": "getInfo"};
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'reply_ok.php',
-                    data: info,
-                    success: function (data) {
-                        var res = $.parseJSON(data);
-                        console.log(res.id);
-
-                        $('textarea').val(res.reply);
-                        $('#send_btn').html(res.id);
-                        $('#send_btn').val("수정");
-                        $('#send_btn').attr('id', 'change_btn');
-
-
-                    }
-                });
-            });
-
-            // 댓글 삭제
-            $(document).on("click", "#delete_btn", function () {
-
-                var id = $(this).attr("name");
-
-                var info = {"replyNum": id, "action": "delete"};
-                console.log(info);
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'reply_ok.php',
-                    data: info,
-                    success: function (data) {
-
-                        if ($('#replys_form').empty()) {
-                            getAllList();
-                            $('textarea').val('');
-                        }
-                    }
-                });
-            });
-            // 수정된 댓글 전송
-            $(document).on("click", "#change_btn", function () {
-                if (!checkMemo()) {
-                    zeroMemo();
-
-                    var id = $('#change_btn').text();
-
-                    console.log(id);
-                    var text = $('textarea').val();
-                    console.log(text);
-
-
-                    var info = {"replyNum": id, "reply": text, "action": "update"};
-                    $.ajax({
-                        type: 'POST',
-                        url: 'reply_ok.php',
-                        data: info,
-                        success: function (data) {
-
-                            if ($('#replys_form').empty()) {
-                                getAllList();
-                                $('textarea').val('');
-                                $('#change_btn').html('');
-                                $('#change_btn').val("등록");
-                                $('#change_btn').attr('id', 'send_btn');
-
-                            }
-                        }
-                    });
-                }
-            });
-
-            // 댓글 전송
-            $(document).on("click", "#send_btn", function () {
-                if (!checkMemo()) {
-                    zeroMemo();
-
-                    var formData = $("#reply_form").serialize();
-                    console.log(formData);
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'reply_ok.php',
-                        data: formData,
-                        success: function (data) {
-                            console.log(data);
-
-                            if ($('#replys_form').empty()) {
-                                getAllList();
-                                $('textarea').val('');
-                            }
-                        }
-                    });
-                }
-            });
         </script>
+        <script type="text/javascript" src="../js/reply.js"></script>
 
         <ul class="replylist" id="replys_form">
         </ul>
@@ -319,6 +183,8 @@ $row = mysqli_fetch_array($result);
 
         <div class="chat_box">
             <!-- 글자수제한 및 엔터 제한 -->
+            <script type="text/javascript" src="../js/replyCk.js"></script>
+
             <script type="text/javascript">
 
                 //댓글이 입력되었는지 확인

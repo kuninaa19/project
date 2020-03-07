@@ -57,14 +57,7 @@ foreach ($html2->find('h1.margin-bottom') as $article) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ITdream</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <style>
         /* Make the image fully responsive */
@@ -78,11 +71,9 @@ foreach ($html2->find('h1.margin-bottom') as $article) {
 <br>
 <div class="container">
     <div class="nav">
-        <div class="big-category"><a href="index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px"
-                                                           height="50px"></a></div>
+        <div class="big-category"><a href="index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px" height="50px"></a></div>
         <div class="nav-right-items">
-            <div class="nav-item"><a href="#"
-                                     onclick="window.open('http://localhost:8080/auth', '대화방','width=570px height=670px'); return false">채팅</a>
+            <div class="nav-item"><a href="#" onclick="window.open('http://localhost:8080/auth', '대화방','width=570px height=670px'); return false">채팅</a>
             </div>
             <div class="nav-item"><a href="review/review.php">리뷰</a></div>
             <div class="nav-item"><a href="news/news.php?page=1">뉴스</a></div>
