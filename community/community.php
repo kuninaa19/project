@@ -24,7 +24,7 @@
       <div class="nav-item"><a href="#" onclick="window.open('http://localhost:8080/auth', '대화방','width=570px height=670px'); return false">채팅</a></div>
         <div class="nav-item"><a href="../review/review.php">리뷰</a></div>
 	    <div class ="nav-item"><a href="../news/news.php?page=1">뉴스</a></div>
-        <div class="nav-item"><a href="../community/community.php?page=1&list=10">커뮤니티</a></div>
+        <div class="nav-item"><a href="community.php?page=1&list=10">커뮤니티</a></div>
         <div class="nav-item"><a href="../notice/notice.php?page=1&list=10">공지사항</a></div>
         <div class="nav-item">
         <?php include '../auth/session_login.php' ?>

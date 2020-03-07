@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
-    echo "<a href=\"auth/SignUp.php\">회원가입</a>";
+    echo "<a href=\"../auth/SignUp.php\">회원가입</a>";
 } else {
     $user_id = $_SESSION['user_id'];
     $user_name = $_SESSION['user_name'];

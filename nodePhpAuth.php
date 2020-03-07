@@ -25,7 +25,7 @@ else {
 
 
 // // request이용한 값가져오기(세션)
-// $conn = mysqli_connect('localhost', 'minchan', 'Abzz4795!', 'myWeb');
+//  include_once('db.php');
 //     session_start();
 //     $returnMsg = "로그인후 이용해주세요";
 

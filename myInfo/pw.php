@@ -13,14 +13,13 @@
     <link rel="stylesheet" href="../css/bootstrap.css"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.js"></script>
-    <link href="../css/style.css?ater" rel="stylesheet" type="text/css"/>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <br>
 <div class="container">
     <div class="nav">
-        <div class="big-category"><a href="../index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px"
-                                                              height="50px"></a></div>
+        <div class="big-category"><a href="../index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px" height="50px"></a></div>
     </div>
     <dt><p style="margin-top:30px; text-align: center; font-size : 20px;">개인 정보 보호를 위해 비밀번호를 입력해주세요</p></dt>
 

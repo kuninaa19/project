@@ -36,10 +36,10 @@ $number= $_GET['id'];
         <div class="nav-item"><a href="../community/community.php?page=1&list=10">커뮤니티</a></div>
         <div class="nav-item"><a href="notice.php?page=1&list=10">공지사항</a></div>
         <div class="nav-item">
-        <?php include '../session_login.php' ?>
+        <?php include '../auth/session_login.php' ?>
         </div>
         <div class="nav-item">
-        <?php include '../session_signUp.php' ?>
+        <?php include '../auth/session_signUp.php' ?>
         </div>
       </div>
     </div>

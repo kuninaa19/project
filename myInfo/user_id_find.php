@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../css/bootstrap.css"/>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="../js/bootstrap.js"></script>
-  <link rel="stylesheet" href="../css/style.css?" type="text/css"/>
+  <link rel="stylesheet" href="../css/style.css" type="text/css"/>
 </head>
     <body>
     <br>
@@ -56,7 +56,7 @@
           }
         else{
           alert("아이디는 "+result+ "입니다.");
-          window.location.href="index.php";
+          window.location.href="../index.php";
     		  }
     	  }
     }

@@ -65,7 +65,7 @@ foreach ($html2->find('h1.margin-bottom') as $article) {
     <link rel="stylesheet" href="css/style.css"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <link href="css/style.css?efee" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <style>
         /* Make the image fully responsive */
         .carousel-inner img {

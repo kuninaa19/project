@@ -32,7 +32,7 @@
             if($result === false){
             header("Content-Type: text/html; charset=UTF-8");
             echo "<script>alert('관리자에게 문의해주세요');";
-            echo "window.location.replace('index.php');</script>";
+            echo "window.location.replace('../index.php');</script>";
             error_log(mysqli_error($conn));
             exit;
             }
@@ -52,7 +52,7 @@
         <?php }?>
         
         <?php } else {
-            echo ">[돌아가기]</a> ";
+            echo "<a href='../index.php'>[돌아가기]</a> ";
         } ?>
         <span>
         <button type="button" class="btn btn-primary" onClick="location.href='pw.php?form=1'" style="margin-left:30px">닉네임변경</button>

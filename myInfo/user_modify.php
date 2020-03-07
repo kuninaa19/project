@@ -50,7 +50,7 @@
             if($result === false){
             header("Content-Type: text/html; charset=UTF-8");
             echo "<script>alert('관리자에게 문의해주세요');";
-            echo "window.location.replace('index.php');</script>";
+            echo "window.location.replace('../index.php');</script>";
             error_log(mysqli_error($conn));
             exit;
             }

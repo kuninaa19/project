@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../css/bootstrap.css"/>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
-        <link href="../css/style.css?after" rel="stylesheet" type="text/css"/>
+        <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <br>

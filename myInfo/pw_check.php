@@ -50,7 +50,7 @@ if($result === false){
     else{
         header("Content-Type: text/html; charset=UTF-8");
         echo "<script>alert('존재하지않는 회원아이디 입니다.');";
-        echo "window.location.replace('index.php');</script>";
+        echo "window.location.replace('../index.php');</script>";
         exit;
     }
    
