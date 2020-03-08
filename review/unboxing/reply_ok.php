@@ -1,11 +1,11 @@
 <?php
 session_start();
-include_once('../db.php');
+include_once('../../db.php');
 
 if (isset($_POST["action"])) {
     if ($_POST["action"] == "delete") {
 
-        $sql = "DELETE FROM review_reply WHERE id = '{$_POST['replyNum']}'";
+        $sql = "DELETE FROM unboxing_reply WHERE id = '{$_POST['replyNum']}'";
 
         $result = mysqli_query($conn, $sql);
         if ($result) {
@@ -13,7 +13,7 @@ if (isset($_POST["action"])) {
         }
 
     } else if ($_POST["action"] == "update") {
-        $sql = "UPDATE review_reply SET nickname = '{$_SESSION['user_name']}', reply = '{$_POST['reply']}' WHERE id = '{$_POST['replyNum']}'";
+        $sql = "UPDATE unboxing_reply SET nickname = '{$_SESSION['user_name']}', reply = '{$_POST['reply']}' WHERE id = '{$_POST['replyNum']}'";
 
         $result = mysqli_query($conn, $sql);
         if ($result) {
@@ -21,7 +21,7 @@ if (isset($_POST["action"])) {
         }
     } // 수정전 작성된 댓글 내용 가져오기
     else if ($_POST["action"] == "getInfo") {
-        $sql = "SELECT * FROM review_reply WHERE id = '{$_POST['replyNum']}'";
+        $sql = "SELECT * FROM unboxing_reply WHERE id = '{$_POST['replyNum']}'";
 
         $result = mysqli_query($conn, $sql);
 
@@ -40,7 +40,7 @@ if (isset($_POST["action"])) {
     $replyText = $_POST['memo'];
     $user = $_SESSION['user_id'];
 
-    $sql = "INSERT INTO review_reply (reviewNum, nickname, reply, created, user_id) VALUES ('$board_num', '$nick', '$replyText', now(),'$user')";
+    $sql = "INSERT INTO unboxing_reply (unboxingNum, nickname, reply, created, user_id) VALUES ('$board_num', '$nick', '$replyText', now(),'$user')";
 
 
     $result = mysqli_query($conn, $sql) or die("Error :	" . mysqli_error());

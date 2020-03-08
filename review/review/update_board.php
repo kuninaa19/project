@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php session_start();
-include_once('../db.php');
+include_once('../../db.php');
 
 $number = $_GET['id'];
 
@@ -15,34 +15,29 @@ $row = mysqli_fetch_array($result);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ITdream</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.js"></script>
-    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../../css/bootstrap.css"/>
+    <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js"></script>
 </head>
 <body>
 <br>
 <div class="container">
     <div class="nav">
-        <div class="big-category"><a href="../index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px"
-                                                              height="50px"></a></div>
+        <div class="big-category"><a href="../../index.php"><img src="/smarteditor/upload/wefewfew.jpg" width="200px"
+                                                                 height="50px"></a></div>
         <div class="nav-right-items">
             <div class="nav-item"><a href="#"
                                      onclick="window.open('http://localhost:8080/auth', '대화방','width=570px height=670px'); return false">채팅</a>
             </div>
-            <div class="nav-item"><a href="review.php">리뷰</a></div>
-            <div class="nav-item"><a href="../news/news.php?page=1">뉴스</a></div>
-            <div class="nav-item"><a href="../community/community.php?page=1&list=10">커뮤니티</a></div>
-            <div class="nav-item"><a href="../notice/notice.php?page=1&list=10">공지사항</a></div>
+            <div class="nav-item"><a href="../review.php">리뷰</a></div>
+            <div class="nav-item"><a href="../../news/news.php?page=1">뉴스</a></div>
+            <div class="nav-item"><a href="../../community/community.php?page=1&list=10">커뮤니티</a></div>
+            <div class="nav-item"><a href="../../notice/notice.php?page=1&list=10">공지사항</a></div>
             <div class="nav-item">
-                <?php include '../auth/session_login.php' ?>
+                <?php include '../../auth/session_login.php' ?>
             </div>
             <div class="nav-item">
-                <?php include '../auth/session_signUp.php' ?>
+                <?php include '../../auth/session_signUp.php' ?>
             </div>
         </div>
     </div>
@@ -52,7 +47,7 @@ $row = mysqli_fetch_array($result);
         <div class="nav-right-items"></div>
     </div>
 
-    <form action="update_review_ok.php" name="Wform" method="post" accept-charset="utf-8">
+    <form action="update_board_ok.php" name="Wform" method="post" accept-charset="utf-8">
         <table class="table table-bordered">
             <thead>
             </thead>
@@ -103,7 +98,7 @@ $row = mysqli_fetch_array($result);
                         });
 
                     </script>
-                    <script src="../js/updateEditor.js"></script>
+                    <script src="../../js/updateEditor.js"></script>
                 </td>
             </tr>
             <tr>
@@ -121,9 +116,6 @@ $row = mysqli_fetch_array($result);
     </form>
 </div>
 <div style="margin:100px"></div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
 

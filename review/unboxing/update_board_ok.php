@@ -1,6 +1,6 @@
 <!-- needs data store process-->
 <?php
-include_once('../db.php');
+include_once('../../db.php');
 
 $number = $_POST['id'];
 $title = $_POST['subject'];
@@ -11,7 +11,7 @@ $html = $_POST['content'];
 preg_match("/<img[^>]*src=[']?([^>']+)[']?[^>]*>/", $html, $img);
 
 $sql = "
-     UPDATE review
+     UPDATE unboxing
      SET title = '{$title}',
      description = '{$description}',
      video = '{$video}',
@@ -22,9 +22,9 @@ $result = mysqli_query($conn, $sql);
 if ($result == false) {
     header("Content-Type: text/html; charset=UTF-8");
     echo "<script>alert('저장하는 과정에서 문제가 생겼습니다. 관리자에게 문의해주세요');";
-    echo "window.location.replace('review_list.php?page=1&list=10');</script>";
+    echo "window.location.replace('unboxing.php?page=1&list=10');</script>";
     error_log(mysqli_error($conn));
     exit;
 }
 ?>
-<meta http-equiv="refresh" content="0;url=review_list.php?page=1&list=10"/>
+<meta http-equiv="refresh" content="0;url=unboxing.php?page=1&list=10"/>
