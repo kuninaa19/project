@@ -51,7 +51,7 @@ $row = mysqli_fetch_array($result);
             </thead>
             <tr>
                 <th>제목</th>
-                <td><input type="text" placeholder="제목을 입력해 주세요." id="subject" name="subject" class="form-control"
+                <td><input type="text" placeholder="제목을 입력해 주세요."  name="subject"  id="subject" class="form-control"
                            value="<?= $row['title'] ?>"/></td>
             </tr>
             <tr>

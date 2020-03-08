@@ -53,11 +53,13 @@
             </thead>
             <tr>
                 <th>제목</th>
-                <td><input type="text" placeholder="제목을 입력해 주세요." id="subject" name="subject" class="form-control" maxlength="40" onkeyup="numberMaxLength(this)"/></td>
+                <td><input type="text" placeholder="제목을 입력해 주세요." id="subject" name="subject" class="form-control"
+                           maxlength="40" onkeyup="numberMaxLength(this)"/></td>
             </tr>
             <tr>
                 <th>내용</th>
-                <td><textarea name="content" id="content" rows="10" cols="100" style="width:700px; height:500px; display:none; width:100%">
+                <td><textarea name="content" id="content" rows="10" cols="100"
+                              style="width:700px; height:500px; display:none; width:100%">
           </textarea>
                     <script type="text/javascript" src="../js/writeEditor.js"></script>
                 </td>

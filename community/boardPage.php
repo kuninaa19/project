@@ -11,7 +11,7 @@ include_once('viewed_ck.php');
     <title>ITdream</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link href="../css/style.css?after" rel="stylesheet" type="text/css"/>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <br>
@@ -78,7 +78,7 @@ include_once('viewed_ck.php');
         $row1 = mysqli_fetch_array($confirm);
 
         if (isset($row1['id']) && $checking == $row['user_id']) {
-            echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board.php?id=$number'>삭제</a>";
+            echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board_ok.php?id=$number'>삭제</a>";
             echo "<a class='btn btn-default pull-right' href='./update_board.php?id=$number'>수정</a>";
 
             //관리자글일수도 있으니까 관리자인지 검증작업
@@ -107,7 +107,7 @@ include_once('viewed_ck.php');
 
                 //슈퍼아이디 존재하는지 확인ㅡ 현재 접속유저가 맞는지확인
                 if (isset($super['id'])) {
-                    echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board.php?id=$number'>삭제</a>";
+                    echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board_ok.php?id=$number'>삭제</a>";
 
 
                     FUNCTION hello()
@@ -125,10 +125,7 @@ include_once('viewed_ck.php');
             }
         }
     }
-
-
     ?>
-
     <!-- 댓글 바 -->
 
     <br></br>
