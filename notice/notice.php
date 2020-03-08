@@ -81,7 +81,7 @@
                     ?>
                     <td class="txt_posi"><?= $Num-- ?></td><?
                 } ?>
-                <td class="txt_posi2"><a href="writing.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></td>
+                <td class="txt_posi2"><a href="boardPage.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></td>
                 <td class="txt_posi"><?= $row['nickname'] ?></td>
                 <td class="txt_day"><?= $row['created'] ?></td>
                 <td class="txt_posi"><?= $row['viewed'] ?></td>

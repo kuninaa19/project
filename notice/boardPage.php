@@ -71,18 +71,17 @@ include_once ('viewed_ck.php');
     <!-- declare class setting to "pull-right", maked button reversed -->
     <?php
     $checking = $_SESSION['user_id'];
+    $user = "SELECT * FROM user WHERE id='{$checking}'";
 
-    $admin = "SELECT * FROM super WHERE id='{$checking}'";
+    $confirm = mysqli_query($conn, $user);
+    if ($confirm == TRUE) {
+        $row1 = mysqli_fetch_array($confirm);
 
-    $sup = mysqli_query($conn, $admin);
-    if ($sup == TRUE) {
-        $row1 = mysqli_fetch_array($sup);
-
-        if (isset($row1['id']) && $checking == $row1['id']) {
-            echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board.php?id=$number'>삭제</a>";
+        if (isset($row1['id']) && $checking == $row['user_id']) {
+            echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board_ok.php?id=$number'>삭제</a>";
             echo "<a class='btn btn-default pull-right' href='./update_board.php?id=$number'>수정</a>";
 
-            //  관리자인지 검증작업
+            //관리자글일수도 있으니까 관리자인지 검증작업
             $superCk = "SELECT * FROM super WHERE id='{$checking}'";
             $confirm2 = mysqli_query($conn, $superCk);
             if ($confirm2 == TRUE) {
@@ -91,16 +90,43 @@ include_once ('viewed_ck.php');
             FUNCTION hello()
             {
                 echo "<script> if (confirm('이 버튼에 대한 동작을 수행합니다. 계속합니까?')) {
-            // 확인 버튼 클릭 시 동작
-            alert('동작을 시작합니다.');
+       // 확인 버튼 클릭 시 동작
+       alert('동작을 시작합니다.');
+   } else {
+       // 취소 버튼 클릭 시 동작
+       alert('동작을 취소했습니다.');
+   }
+       </script>";
+            }
         } else {
-            // 취소 버튼 클릭 시 동작
-            alert('동작을 취소했습니다.');
-        }
-            </script>";
+            //슈퍼유저의 글 삭제
+            $superCk = "SELECT * FROM super WHERE id='{$checking}'";
+            $confirm2 = mysqli_query($conn, $superCk);
+            if ($confirm2 == TRUE) {
+                $super = mysqli_fetch_array($confirm2);
+
+                //슈퍼아이디 존재하는지 확인ㅡ 현재 접속유저가 맞는지확인
+                if (isset($super['id'])) {
+                    echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board_ok.php?id=$number'>삭제</a>";
+
+
+                    FUNCTION hello()
+                    {
+                        echo "<script> if (confirm('이 버튼에 대한 동작을 수행합니다. 계속합니까?')) {
+       // 확인 버튼 클릭 시 동작
+       alert('동작을 시작합니다.');
+   } else {
+       // 취소 버튼 클릭 시 동작
+       alert('동작을 취소했습니다.');
+   }
+       </script>";
+                    }
+                }
             }
         }
     }
+
+
     ?>
 
     <!-- 댓글 바 -->
@@ -123,7 +149,6 @@ include_once ('viewed_ck.php');
             var str = "";
             var count = 0;
 
-
             // 댓글 전부 업로드
             function getAllList() {
 
@@ -132,7 +157,7 @@ include_once ('viewed_ck.php');
                     $(data).each(function () {
                         count += 1;
 
-                        if (this.user_id == "<?=$_SESSION['user_id']?>") {
+                        if (this.user_id === "<?=$_SESSION['user_id']?>") {
                             str += "<li class='reply'>" +
                                 "<div class='replyText'>" + this.nickname + "<p class='dayfont'>" + this.created +
                                 "<p class='replybutton'>" +
@@ -144,7 +169,7 @@ include_once ('viewed_ck.php');
                                 this.reply + "<div style='display:none' id='user_id'>" + this.user_id + "</div></li>";
                         }
                         //슈퍼유저의 댓글 삭제
-                        else if ("<?=$super['id']?>" == "<?=$_SESSION['user_id']?>") {
+                        else if ("<?=$super['id']?>" === "<?=$_SESSION['user_id']?>" && "" != "<?=$_SESSION['user_id']?>") {
                             str += "<li class='reply'>" +
                                 "<div class='replyText'>" + this.nickname + "<p class='dayfont'>" + this.created +
                                 "<p class='replybutton'>" +
@@ -185,49 +210,6 @@ include_once ('viewed_ck.php');
             <!-- 글자수제한 및 엔터 제한 -->
             <script type="text/javascript" src="../js/replyCk.js"></script>
 
-            <script type="text/javascript">
-
-                //댓글이 입력되었는지 확인
-                function checkMemo() {
-                    if (!document.getElementById('textarea').value) {
-                        alert("댓글을 입력해 주세요.");
-                        document.getElementById('textarea').focus();
-                        return true;
-                    } else {
-                        subEle = document.getElementById('textarea').value;
-
-                        if ($.trim(subEle) == "") { //앞뒤로 공백이 있는지확인
-                            alert("댓글을 입력해 주세요.");
-                            document.getElementById('textarea').focus();
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                };
-
-                $(function () {
-                    $('#textarea').keyup(function (e) {
-                        var content = $(this).val();
-                        $('#memoLength').html(content.length + '/150');
-                    });
-                    $('#content').keyup();
-                });
-
-                function limitMemo(obj, cnt) {
-                    if (obj.value.length > cnt) {
-                        alert("댓글은 150자까지만 입력가능합니다.");
-                        obj.value = obj.value.substring(0, cnt);
-                        document.getElementById('memoLength').innerHTML = cnt - obj.value.length;
-
-                    }
-                };
-
-                // 버튼눌렀을때 작성된 댓글글자수 초기화
-                function zeroMemo() {
-                    document.getElementById('memoLength').innerHTML = "";
-                };
-            </script>
             <form name="replyContent" method="post" id="reply_form">
                 <div class="wrap">
         <textarea row="1" cols="100" class="replyarea" id='textarea' maxlength="150" name="memo"

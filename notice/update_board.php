@@ -17,8 +17,17 @@ $row = mysqli_fetch_array($result);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script
     <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link href="../css/style.css?after" rel="stylesheet" type="text/css"/>
-</head>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ITdream</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js"></script>
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    </head>
 <body>
 <br>
 <div class="container">
@@ -42,7 +51,7 @@ $row = mysqli_fetch_array($result);
         </div>
     </div>
 
-    <div class="nav">
+    <div class="nav_sub">
         <div class="big-category"> 글수정</div>
         <div class="nav-right-items"></div>
     </div>
@@ -66,7 +75,7 @@ $row = mysqli_fetch_array($result);
                     $content = str_replace('"', '\"', $content);
                     ?>
                     <textarea name="content" id="content" rows="10" cols="100"
-                              style="width:700px; height:500px; display:none;  width:100%">
+                              style="width:700px; height:500px; display:none;width:100%">
               </textarea>
                     <script type="text/javascript">
                         var oEditors = [];
