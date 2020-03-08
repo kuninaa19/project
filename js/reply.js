@@ -10,7 +10,7 @@ $(document).on("click", "#update_btn", function () {
         data: info,
         success: function (data) {
             var res = $.parseJSON(data);
-            console.log(res.id);
+            // console.log(res.id);
 
             $('textarea').val(res.reply);
             $('#send_btn').html(res.id);
@@ -27,7 +27,7 @@ $(document).on("click", "#delete_btn", function () {
     var id = $(this).attr("name");
 
     var info = {"replyNum": id, "action": "delete"};
-    console.log(info);
+    // console.log(info);
 
     $.ajax({
         type: 'POST',
@@ -49,9 +49,9 @@ $(document).on("click", "#change_btn", function () {
         zeroMemo();
         var id = $('#change_btn').text();
 
-        console.log(id);
+        // console.log(id);
         var text = $('textarea').val();
-        console.log(text);
+        // console.log(text);
 
 
         var info = {"replyNum": id, "reply": text, "action": "update"};
@@ -79,14 +79,14 @@ $(document).on("click", "#send_btn", function () {
     if (!checkMemo()) {
         zeroMemo();
         var formData = $("#reply_form").serialize();
-        console.log(formData);
+        // console.log(formData);
 
         $.ajax({
             type: 'POST',
             url: 'reply_ok.php',
             data: formData,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
 
                 if ($('#replys_form').empty()) {
                     getAllList();
