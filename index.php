@@ -14,8 +14,7 @@ if (isset($_COOKIE["id"]) && isset($_COOKIE["nickname"])) {
 //    $_SESSION['cnt_list'];
 
 } else {
-    echo $_COOKIE["chat"];
-    session_start();
+     session_start();
 //    $_SESSION['cnt_list'];
 }
 include_once 'simple_html_dom.php';

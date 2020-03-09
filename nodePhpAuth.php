@@ -9,7 +9,7 @@ header("content-type:text/html; charset=utf-8");
 
 $callback  = $_REQUEST['callback'];
 
-if(!isset($_COOKIE["chat"])) {
+if(!isset($_SESSION["user_id"])) {
     
     $returnMsg = "로그인후 이용해주세요";
 
@@ -19,7 +19,7 @@ if(!isset($_COOKIE["chat"])) {
 
 else {
 
-    echo $callback."(".json_encode($_COOKIE["chat"]."|".$_SESSION['user_name']).")";
+    echo $callback."(".json_encode($_SESSION["user_id"]."|".$_SESSION['user_name']).")";
 
 }
 
