@@ -8,15 +8,15 @@
     <title>chat</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="../public/javascripts/chat.js"></script>
-    <link rel="stylesheet" type="text/css" href="../public/css/chat.css"/>
+    <script src="../../public/javascripts/chat.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/css/chat.css"/>
 </head>
 <body>
 <nav id="topBar">
     <div class="left-items">
-        <div class="item"><a href='#' onclick="back();" class="menuLink"><img src="../public/images/back.png"></a></div>
+        <div class="item"><a href='#' onclick="back();" class="menuLink"><img src="../../public/images/back.png"></a></div>
         <div class="item"><a href='#' onclick="exit();" class="menuLink"><img class="lineLeft"
-                                                                              src="../public/images/roomExit.png"></a>
+                                                                              src="../../public/images/roomExit.png"></a>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
 
     <!-- 현재 채팅방 인원 표기 -->
     <div class="right-items">
-        <div class="item"><img class="lineLeft" src="../public/images/person.png"></div>
+        <div class="item"><img class="lineLeft" src="../../public/images/person.png"></div>
         <div class="item" class="lineLeft" id="personNum">명</div>
     </div>
 </nav>
@@ -58,6 +58,6 @@
 <input type="hidden" id="userID" name="userID" value=<%= userID %>>
 <input type="hidden" id="nickname" name="nickname" value=<%= nickname %>>
 
-<script src="../public/javascripts/chatting.js"></script>
+<script src="../../public/javascripts/chatting.js"></script>
 </body>
 </html>
