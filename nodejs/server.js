@@ -62,20 +62,20 @@ io.on('connection', function(socket){
     // console.log('User Join');
 
     // 접속한 유저가 속해있는 채팅방의 가장 최신 채팅 전달
-    socket.on('latestChat', function(data) {
-        sql = 'select * from chat WHERE title LIKE "'+value+'%" ORDER BY created DESC';
-        connection.query(sql, function (error, results, fields) {if (error) {
-            console.log(error);
-              }
-            // Array로 선언해야됨 array X
-            var relativeTime = new Array();
-
-            //moment를 사용해서 작성된 시간과 현재시간 비교후 상대시간 저장
-            for(var i=0;i<results.length;i++){
-            relativeTime[i] = moment(results[i].created).fromNow();
-                }
-            });
-    });
+    // socket.on('latestChat', function(data) {
+    //     sql = 'select * from chat WHERE title LIKE "'+value+'%" ORDER BY created DESC';
+    //     connection.query(sql, function (error, results, fields) {if (error) {
+    //         console.log(error);
+    //           }
+    //         // Array로 선언해야됨 array X
+    //         var relativeTime = new Array();
+    //
+    //         //moment를 사용해서 작성된 시간과 현재시간 비교후 상대시간 저장
+    //         for(var i=0;i<results.length;i++){
+    //         relativeTime[i] = moment(results[i].created).fromNow();
+    //             }
+    //         });
+    // });
     
     // 채팅방목록검색
     socket.on('roomSearch', function(value) {
