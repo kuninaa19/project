@@ -98,7 +98,7 @@ include_once('viewed_ck.php');
 
         if (isset($row1['id']) && $checking == $row1['id']) {
             echo "<a class='btn btn-default pull-right' id= 'btn_margin' onclick='return confirm('정말로 삭제하시겠습니까?')' href='./delete_board_ok.php?id=$number'>삭제</a>";
-            echo "<a class='btn btn-default pull-right' href='./update_unboxing.php?id=$number'>수정</a>";
+            echo "<a class='btn btn-default pull-right' href='./update_board.php?id=$number'>수정</a>";
 
             //  관리자인지 검증작업
             $superCk = "SELECT * FROM super WHERE id='{$checking}'";
