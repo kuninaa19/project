@@ -16,8 +16,8 @@ module.exports = function(app,fs)
       connection.connect();
       
    //room id에 맞게 채팅목록창으로 이동 + 채팅방에 가입되어있는지 확인하기
-   app.get('/room/chat?:id', function (req, res) {
-      connection.query('SELECT * FROM chat WHERE id="'+req.query.id+'"', function (error, results, fields) { 
+   app.get('/room/chat/:id', function (req, res) {
+      connection.query('SELECT * FROM chat WHERE id="'+req.params.id+'"', function (error, results, fields) {
           if (error) {
           console.log(error);
             }
@@ -34,7 +34,7 @@ module.exports = function(app,fs)
 
             // 채팅방에 참가중인 아이디인지 확인
             for(var i=0;i<objStr.ID.length;i++){
-              if(objStr.ID[i].user==userID){
+              if(objStr.ID[i].user===userID){
                   ck=1;
                   break;
               }
@@ -47,14 +47,14 @@ module.exports = function(app,fs)
               //JSON형태를 Mysql에 넣기위해 string형으로 변환
               var myJSON = JSON.stringify(objStr);
               //query를 통해 mysql에 데이터저장
-              sql = 'UPDATE chat SET userID= ? WHERE id="'+req.query.id+'"';
+              sql = 'UPDATE chat SET userID= ? WHERE id="'+req.params.id+'"';
               connection.query(sql,myJSON, function (error, results, fields) {
               if (error) {
                   console.log(error);
                   res.redirect('/');
               }
               //해당 채팅방의 모든 채팅목록 가져옴.
-              connection.query('SELECT * FROM chat_reply WHERE roomNum="'+req.query.id+'"', function (error, results, fields) { 
+              connection.query('SELECT * FROM chat_reply WHERE roomNum="'+req.params.id+'"', function (error, results, fields) {
                 if (error) {
                   console.log(error);
                     }
@@ -66,7 +66,7 @@ module.exports = function(app,fs)
             }
             else{
               //해당 채팅방의 모든 채팅목록 가져옴.
-              connection.query('SELECT * FROM chat_reply WHERE roomNum="'+req.query.id+'"', function (error, results, fields) { 
+              connection.query('SELECT * FROM chat_reply WHERE roomNum="'+req.params.id+'"', function (error, results, fields) {
                 if (error) {
                   console.log(error);
                     }
@@ -108,7 +108,7 @@ module.exports = function(app,fs)
         else{
         // 채팅방에 참가중인 아이디인지 확인
         for(var i=0;i<objStr.ID.length;i++){
-          if(objStr.ID[i].user==userID){
+          if(objStr.ID[i].user===userID){
             //objStr.ID배열에서 i번(아이디가 동일한 인덱스)부터 1개요소 제거
             objStr.ID.splice(i,1);
               break;
