@@ -28,7 +28,7 @@ module.exports = function(app,fs)
         require('moment-timezone');
         moment.tz.setDefault("Asia/Seoul");
         var date = moment().format('YY-MM-DD HH:mm');
-        console.log(date);
+        // console.log(date);
 
         let body = req.body; //방만들때 받은 제목, 내용 작성자..등등
         let title = body.subject;
