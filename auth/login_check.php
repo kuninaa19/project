@@ -36,9 +36,8 @@ if ($result === false) {
                     setcookie("id", $encrypted1, time() + 86400 * 7);
                     setcookie("nickname", $encrypted2, time() + 86400 * 7);
                 }
-                //채팅서버 접속을 위한 쿠키암호화
 //                $encrypted3 = Encrypt($row['id'], $secret_key, $secret_iv);
-                $cook = setcookie("chat", $row['id'], time() + 10800); // 3시간 유효 쿠키 생성
+//                $cook = setcookie("chat", $row['id'], time() + 10800); // 3시간 유효 쿠키 생성
 
                 session_start();
                 $_SESSION['user_id'] = $row['id']; //로그인 성공 시 세션 변수 만들기
