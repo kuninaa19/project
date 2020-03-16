@@ -24,7 +24,7 @@ connection.connect();
 //8080번 포트를 읽으면 로그cmd에 남김
 var server = app.listen(8080, function(){
     console.log("8080서버 실행중")
-   });
+   });  
 
 //8080서버를 읽을때마다 리스트에 사람 채워줌
 var io = socketio.listen(server);
